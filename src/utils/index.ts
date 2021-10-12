@@ -5,6 +5,8 @@ export const TIME_BETWEEN_SAME_USER_VIEWS = 10000
 export const LIMIT_MAX_PAGINATION = 50
 
 export const fetchTimeout = (url: string, options: any = null, timeoutLimit = 30000) => {
+    console.log("fetch timeout started")
+    console.time(url)
     const controller = new AbortController();
     const signal = controller.signal
     const timeout = setTimeout(() => {
@@ -14,6 +16,8 @@ export const fetchTimeout = (url: string, options: any = null, timeoutLimit = 30
         ...options,
         signal
     }).finally(() => {
+        console.timeEnd(url)
+        console.log("fetch timeout ended")
         clearTimeout(timeout);
     });
 };
